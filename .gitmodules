@@ -1,0 +1,9 @@
+[submodule "RCore/vendor/glfw"]
+	path = RCore/vendor/glfw
+	url = https://github.com/thecherno/glfw
+[submodule "RCore/vendor/imgui"]
+	path = RCore/vendor/imgui
+	url = https://github.com/thecherno/imgui
+[submodule "RCore/vendor/raylib"]
+	path = RCore/vendor/raylib
+	url = https://github.com/mi1ax/raylib

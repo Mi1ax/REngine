@@ -10,3 +10,6 @@
 [submodule "RCore/vendor/spdlog"]
 	path = RCore/vendor/spdlog
 	url = https://github.com/gabime/spdlog
+[submodule "RCore/vendor/glm"]
+	path = RCore/vendor/glm
+	url = https://github.com/g-truc/glm

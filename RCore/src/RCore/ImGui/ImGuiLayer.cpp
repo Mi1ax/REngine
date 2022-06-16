@@ -1,6 +1,7 @@
 ﻿#include "rcpch.h"
-#include "ImGuiRender.h"
+#include "ImGuiLayer.h"
 
+#include "RCore/Core/Application.h"
 #include "RCore/Core/Window.h"
 
 #include <imgui.h>
@@ -10,7 +11,18 @@
 #include <backends/imgui_impl_glfw.h>
 #include <backends/imgui_impl_opengl3.h>
 
-void ImGuiRender::Init()
+ImGuiLayer::ImGuiLayer()
+    : Layer("ImGuiLayer")
+{
+
+}
+
+ImGuiLayer::~ImGuiLayer()
+{
+
+}
+
+void ImGuiLayer::OnAttach()
 {
     ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO(); (void)io;
@@ -28,32 +40,33 @@ void ImGuiRender::Init()
         style.Colors[ImGuiCol_WindowBg].w = 1.0f;
     }
 
-    Window& win = Window::Get();
-    GLFWwindow* window = win.GetNativeWindow();
+    Application& app = Application::Get();
+    GLFWwindow* window = app.GetWindow().GetNativeWindow();
 
     // Setup Platform/Renderer backends
     ImGui_ImplGlfw_InitForOpenGL(window, true);
     ImGui_ImplOpenGL3_Init("#version 410");
 }
 
-void ImGuiRender::Destroy()
+void ImGuiLayer::OnDetach()
 {
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();
     ImGui::DestroyContext();
-}
+} 
 
-void ImGuiRender::BeginFrame()
+void ImGuiLayer::Begin()
 {
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
 }
 
-void ImGuiRender::EndFrame()
+void ImGuiLayer::End()
 {
     ImGuiIO& io = ImGui::GetIO();
-    Window& win = Window::Get();
+    Application& app = Application::Get();
+    Window& win = app.GetWindow();
 
     io.DisplaySize = ImVec2(win.GetWidth(), win.GetHeight());
 

@@ -6,7 +6,7 @@ project "RCore"
 	objdir("%{wks.location}/bin-int/" .. outputdir .. "/%{prj.name}")
 
 	pchheader "rcpch.h"
-    pchsource "RCore/src/rcpch.cpp"
+	pchsource "RCore/src/rcpch.cpp"
 
 	files 
 	{
@@ -26,7 +26,8 @@ project "RCore"
 		"src",
 		"%{IncludeDir.glfw}",
         "%{IncludeDir.raylib}",
-        "%{IncludeDir.imgui}"
+        "%{IncludeDir.imgui}",
+        "%{IncludeDir.spdlog}",
 	}
 	
 	filter "action:vs*"

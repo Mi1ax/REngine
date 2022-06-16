@@ -24,6 +24,7 @@ project "RGame"
 		"src",
 		"%{wks.location}/RCore/src",
 		"%{IncludeDir.glfw}",
+		"%{IncludeDir.spdlog}",
         "%{IncludeDir.raylib}",
         "%{IncludeDir.imgui}"
 	}

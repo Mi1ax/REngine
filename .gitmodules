@@ -7,3 +7,6 @@
 [submodule "RCore/vendor/raylib"]
 	path = RCore/vendor/raylib
 	url = https://github.com/mi1ax/raylib
+[submodule "RCore/vendor/spdlog"]
+	path = RCore/vendor/spdlog
+	url = https://github.com/gabime/spdlog

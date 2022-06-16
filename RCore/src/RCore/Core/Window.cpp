@@ -2,34 +2,33 @@
 #include "Window.h"
 
 #include "Framebuffer.h"
-
-#include "RCore/ImGui/ImGuiRender.h"
-#include <imgui.h>
-
 #include "raylib.h"
+
+#include <imgui.h>
 #include <rlgl.h>
 #include <GLFW/glfw3.h>
 
-Window* Window::s_Instance = nullptr;
-
-Window::Window(const char* title, uint32_t width, uint32_t height)
+Window::Window(const std::string& title, uint32_t width, uint32_t height)
 {
+    SetTraceLogLevel(LOG_DEBUG | LOG_ERROR | LOG_WARNING | LOG_FATAL);
+
     m_Data.Title = title;
     m_Data.Width = width;
     m_Data.Height = height;
 
-    // TODO: Logging System
-    s_Instance = this;
+    Init();
+    
+    m_Framebuffer = CreateRef<Framebuffer>(m_Data.Width, m_Data.Height);
+}
 
+void Window::Init()
+{
     glfwSetErrorCallback([](int error, const char* description)
-    {
-        // TODO: Error Callback
-    });
+        {
+            CORE_ERROR("GLFW Error ({0}): {1}", error, description);
+        });
 
-    if (!glfwInit())
-    {
-        printf("GLFW3: Can't initialize GLFW\n");
-    }
+    CORE_ASSERT(glfwInit(), "Can't initialize GLFW");
 
     glfwWindowHint(GLFW_SAMPLES, 4);
     glfwWindowHint(GLFW_DEPTH_BITS, 16);
@@ -42,28 +41,28 @@ Window::Window(const char* title, uint32_t width, uint32_t height)
     if (!m_Window)
     {
         glfwTerminate();
-        printf("GLFW3: Can't initialize window\n");
+        CORE_ERROR("GLFW3: Can't initialize window");
     }
-    else printf("GLFW3: Window created successfully\n");
+    else CORE_INFO("GLFW3: Window created successfully");
 
     glfwSetWindowUserPointer(m_Window, &m_Data);
 
     glfwSetKeyCallback(m_Window, [](GLFWwindow* window, int key, int scancode, int action, int mods)
-    {
-        // TODO: Improve
-        if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
         {
-            glfwSetWindowShouldClose(window, GL_TRUE);
-        }
-    });
+            // TODO: Improve
+            if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+            {
+                glfwSetWindowShouldClose(window, GL_TRUE);
+            }
+        });
     glfwSetWindowSizeCallback(m_Window, [](GLFWwindow* window, int width, int height)
-    {
-        WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+        {
+            WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 
-        data.Width = width;
-        data.Height = height;
-    	rlViewport(0, 0, width, height);
-    });
+            data.Width = width;
+            data.Height = height;
+            rlViewport(0, 0, width, height);
+        });
 
     glfwMakeContextCurrent(m_Window);
     glfwSwapInterval(0);
@@ -81,24 +80,19 @@ Window::Window(const char* title, uint32_t width, uint32_t height)
     rlLoadIdentity();                                   // Reset current matrix (MODELVIEW)
 
     rlClearColor(245, 245, 245, 255);                   // Define clear color
-    rlEnableDepthTest();                                // Enable DEPTH_TEST for 3D
-
-    ImGuiRender::Init();
-    m_Framebuffer = CreateRef<Framebuffer>(m_Data.Width, m_Data.Height);
+    rlEnableDepthTest();
 }
 
-Window::~Window()
+void Window::Shutdown()
 {
-    ImGuiRender::Destroy();
-    rlglClose();                    
+    rlglClose();
 
-    glfwDestroyWindow(m_Window);      
-    glfwTerminate();                
+    glfwDestroyWindow(m_Window);
 }
 
-void Window::Run()
+void Window::OnUpdate()
 {
-    bool open = true;
+    /*bool open = true;
     while(!glfwWindowShouldClose(m_Window))
     {
         rlClearScreenBuffers();
@@ -191,9 +185,9 @@ void Window::Run()
             ClearBackground(PINK);
             DrawRectangleV({ 0.0f, 0.0f }, m_ViewportSize, BLACK);
         }
-        EndTextureMode();
-        
-        glfwSwapBuffers(m_Window);
-        glfwPollEvents();
-    }
+        EndTextureMode();*/
+
+    glfwSwapBuffers(m_Window);
+    glfwPollEvents();
+	//}
 }

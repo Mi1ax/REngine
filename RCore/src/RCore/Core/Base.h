@@ -2,6 +2,14 @@
 
 #include <memory>
 
+#ifdef DEBUG
+	#define ASSERT(x, ...) { if(!(x)) { ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
+	#define CORE_ASSERT(x, ...) { if(!(x)) { CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
+#else
+	#define ASSERT(x, ...)
+	#define CORE_ASSERT(x, ...)
+#endif
+
 template<typename T>
 using Scope = std::unique_ptr<T>;
 template<typename T, typename ... Args>

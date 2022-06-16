@@ -32,8 +32,7 @@ void Framebuffer::Resize(uint32_t width, uint32_t height)
 {
     if (width == 0 || height == 0 || width > s_MaxFramebufferSize || height > s_MaxFramebufferSize)
     {
-        // TODO: Logging System
-        TRACELOG("Attempted to resize framebuffer to {0}, {1}", width, height);
+        CORE_ERROR("Attempted to resize framebuffer to {0}, {1}", width, height);
         return;
     }
 
@@ -76,12 +75,11 @@ void Framebuffer::LoadBuffer()
         rlFramebufferAttach(m_Framebuffer.id, m_Framebuffer.depth.id, RL_ATTACHMENT_DEPTH, RL_ATTACHMENT_RENDERBUFFER, 0);
 
         // Check if fbo is complete with attachments (valid)
-        // TODO: Logging System
         if (rlFramebufferComplete(m_Framebuffer.id))
-            TRACELOG(LOG_INFO, "FBO: [ID %i] Framebuffer object created successfully", m_Framebuffer.id);
+            CORE_INFO("FBO: [ID %i] Framebuffer object created successfully", m_Framebuffer.id);
 
         rlDisableFramebuffer();
     }
-    else // TODO: Logging System
-        TRACELOG(LOG_WARNING, "FBO: Framebuffer object can not be created");
+    else
+        CORE_ERROR("FBO: Framebuffer object can not be created");
 }

@@ -24,6 +24,7 @@ IncludeDir = {}
 IncludeDir["glfw"] = "%{wks.location}/RCore/vendor/glfw/include"
 IncludeDir["raylib"] = "%{wks.location}/RCore/vendor/raylib/src"
 IncludeDir["imgui"] = "%{wks.location}/RCore/vendor/imGui"
+IncludeDir["spdlog"] = "%{wks.location}/RCore/vendor/spdlog/include"
 
 group "Dependencies"
 	include "RCore/vendor/raylib"

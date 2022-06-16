@@ -1,9 +1,7 @@
 ﻿#pragma once
+#include "rcpch.h"
 
-// TODO: pch.h
-#include <iostream>
-
-#include "raylib.h"
+#include "Renderer.h"
 
 class Framebuffer
 {
@@ -20,12 +18,9 @@ public:
 	uint32_t GetHeight() const { return m_Height; }
 
 	uint32_t GetColorAttachmentRendererID() const { return m_Framebuffer.texture.id; };
-	RenderTexture2D GetTarget() const { return m_Framebuffer; }
-
-private:
-	void LoadBuffer();
+	RenderTexture GetTarget() const { return m_Framebuffer; }
 
 private:
 	uint32_t m_Width, m_Height;
-	RenderTexture2D m_Framebuffer;
+	RenderTexture m_Framebuffer;
 };

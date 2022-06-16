@@ -23,6 +23,7 @@ public:
 	ImGuiLayer* GetImGuiLayer() const { return m_ImGuiLayer; }
 
 	inline Window& GetWindow() { return *m_Window; }
+	inline void Close() { m_Running = false; }
 
 	inline static Application& Get() { return *s_Instance; }
 
@@ -36,6 +37,7 @@ private:
 
 	bool m_Running = true;
 	bool m_Minimazed = false;
+	float m_LastFrameTime = 0.0f;
 
 	LayerStack m_LayerStack;
 

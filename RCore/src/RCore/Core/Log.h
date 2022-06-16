@@ -29,11 +29,11 @@ private:
 #define CORE_WARN(...)		::Log::GetCoreLogger()->warn(__VA_ARGS__)
 
 // Client log macros
-#define TRACE(...)	::Log::GetClientLogger()->trace(__VA_ARGS__)
-#define ERROR(...)	::Log::GetClientLogger()->error(__VA_ARGS__)
-#define FATAL(...)	::Log::GetClientLogger()->fatal(__VA_ARGS__)
-#define INFO(...)		::Log::GetClientLogger()->info(__VA_ARGS__)
-#define WARN(...)		::Log::GetClientLogger()->warn(__VA_ARGS__)
+#define CLIENT_TRACE(...)	::Log::GetClientLogger()->trace(__VA_ARGS__)
+#define CLIENT_ERROR(...)	::Log::GetClientLogger()->error(__VA_ARGS__)
+#define CLIENT_FATAL(...)	::Log::GetClientLogger()->fatal(__VA_ARGS__)
+#define CLIENT_INFO(...)		::Log::GetClientLogger()->info(__VA_ARGS__)
+#define CLIENT_WARN(...)		::Log::GetClientLogger()->warn(__VA_ARGS__)
 #endif
 
 #ifndef LOGGING
@@ -44,9 +44,9 @@ private:
 #define CORE_WARN(...)		
 
 // Client log macros
-#define TRACE(...)	
-#define ERROR(...)	
-#define FATAL(...)	
-#define INFO(...)		
-#define WARN(...)
+#define CLIENT_TRACE(...)	
+#define CLIENT_ERROR(...)	
+#define CLIENT_FATAL(...)	
+#define CLIENT_INFO(...)		
+#define CLIENT_WARN(...)
 #endif

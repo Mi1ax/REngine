@@ -1,8 +1,10 @@
 ﻿#include "rcpch.h"
-#include "RCore/Core/Base.h"
 #include "Application.h"
 
-#include <rlgl.h>
+#include "RCore/Core/Base.h"
+#include "RCore/Renderer/Renderer.h"
+
+#include <GLFW/glfw3.h>
 
 Application* Application::s_Instance = nullptr;
 
@@ -63,7 +65,7 @@ bool Application::OnWindowResize(WindowResizeEvent& e)
 	}
 
 	m_Minimazed = false;
-	rlViewport(0, 0, e.GetWidth(), e.GetHeight());
+	Renderer::SetViewport(0, 0, e.GetWidth(), e.GetHeight());
 
 	return false;
 }
@@ -72,7 +74,9 @@ void Application::Run()
 {
 	while (m_Running)
 	{
-		float timestep = GetFrameTime();
+		float time = (float)glfwGetTime();
+		float timestep = time - m_LastFrameTime;
+		m_LastFrameTime = time;
 
 		if (!m_Minimazed) {
 			for (Layer* layer : m_LayerStack)

@@ -1,7 +1,5 @@
 #pragma once
 #include "Base.h"
-
-#include "Framebuffer.h"
 #include "LayerStack.h"
 
 #include "RCore/Event/Event.h"
@@ -43,7 +41,4 @@ private:
 		EventCallbackFn EventCallback;
 	};
 	WindowData m_Data {};
-
-	Ref<Framebuffer> m_Framebuffer;
-	Vector2 m_ViewportSize{};
 };

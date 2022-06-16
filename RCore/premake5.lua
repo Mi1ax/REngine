@@ -6,12 +6,14 @@ project "RCore"
 	objdir("%{wks.location}/bin-int/" .. outputdir .. "/%{prj.name}")
 
 	pchheader "rcpch.h"
-	pchsource "RCore/src/rcpch.cpp"
+	pchsource "src/rcpch.cpp"
 
 	files 
 	{
 		"src/**.cpp",
-		"src/**.h"
+		"src/**.h",
+		"vendor/glm/glm/**.hpp",
+		"vendor/glm/glm/**.inl",
 	}
 
 	links 
@@ -28,6 +30,7 @@ project "RCore"
         "%{IncludeDir.raylib}",
         "%{IncludeDir.imgui}",
         "%{IncludeDir.spdlog}",
+        "%{IncludeDir.glm}",
 	}
 	
 	filter "action:vs*"

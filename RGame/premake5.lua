@@ -26,7 +26,8 @@ project "RGame"
 		"%{IncludeDir.glfw}",
 		"%{IncludeDir.spdlog}",
         "%{IncludeDir.raylib}",
-        "%{IncludeDir.imgui}"
+        "%{IncludeDir.imgui}",
+        "%{IncludeDir.glm}",
 	}
 	
 	filter "action:vs*"

@@ -1,12 +1,14 @@
 #include "rcpch.h"
 #include "Window.h"
 
-#include "Framebuffer.h"
-#include "raylib.h"
-
 #include <imgui.h>
 #include <rlgl.h>
 #include <GLFW/glfw3.h>
+
+#include "Framebuffer.h"
+#include "raylib.h"
+
+#include "RCore/Event/ApplicationEvent.h"
 
 Window::Window(const std::string& title, uint32_t width, uint32_t height)
 {
@@ -48,21 +50,30 @@ void Window::Init()
     glfwSetWindowUserPointer(m_Window, &m_Data);
 
     glfwSetKeyCallback(m_Window, [](GLFWwindow* window, int key, int scancode, int action, int mods)
+    {
+        // TODO: Improve
+        if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
         {
-            // TODO: Improve
-            if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-            {
-                glfwSetWindowShouldClose(window, GL_TRUE);
-            }
-        });
-    glfwSetWindowSizeCallback(m_Window, [](GLFWwindow* window, int width, int height)
-        {
-            WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+            glfwSetWindowShouldClose(window, GL_TRUE);
+        }
+    });
 
-            data.Width = width;
-            data.Height = height;
-            rlViewport(0, 0, width, height);
-        });
+    glfwSetWindowSizeCallback(m_Window, [](GLFWwindow* window, int width, int height)
+    {
+        WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+        data.Width = width;
+        data.Height = height;
+
+        WindowResizeEvent event(width, height);
+        data.EventCallback(event);
+    });
+
+    glfwSetWindowCloseCallback(m_Window, [](GLFWwindow* window)
+    {
+        WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+        WindowCloseEvent event;
+        data.EventCallback(event);
+    });
 
     glfwMakeContextCurrent(m_Window);
     glfwSwapInterval(0);
@@ -187,7 +198,7 @@ void Window::OnUpdate()
         }
         EndTextureMode();*/
 
-    glfwSwapBuffers(m_Window);
     glfwPollEvents();
+    glfwSwapBuffers(m_Window);
 	//}
 }

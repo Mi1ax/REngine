@@ -6,6 +6,7 @@
 #include "LayerStack.h"
 
 #include "RCore/ImGui/ImGuiLayer.h"
+#include "RCore/Event/ApplicationEvent.h"
 
 class Application
 {
@@ -14,6 +15,7 @@ public:
 	~Application();
 
 	void Run();
+	void OnEvent(Event& e);
 
 	void PushLayer(Layer* layer);
 	void PushOverlay(Layer* overlay);
@@ -23,6 +25,10 @@ public:
 	inline Window& GetWindow() { return *m_Window; }
 
 	inline static Application& Get() { return *s_Instance; }
+
+private:
+	bool OnWindowClose(WindowCloseEvent& e);
+	bool OnWindowResize(WindowResizeEvent& e);
 
 private:
 	Scope<Window> m_Window;

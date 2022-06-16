@@ -5,6 +5,9 @@ project "RCore"
 	targetdir("%{wks.location}/bin/" .. outputdir)
 	objdir("%{wks.location}/bin-int/" .. outputdir .. "/%{prj.name}")
 
+	pchheader "rcpch.h"
+    pchsource "RCore/src/rcpch.cpp"
+
 	files 
 	{
 		"src/**.cpp",

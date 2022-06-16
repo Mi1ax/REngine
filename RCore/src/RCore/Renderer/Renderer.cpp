@@ -42,7 +42,10 @@ void Renderer::SetClearColor(const glm::vec4& color)
 
 void Renderer::SetViewport(uint32_t x, uint32_t y, uint32_t width, uint32_t height)
 {
-	rlViewport(x, y, width, height);
+    rlViewport(x, y, width, height);
+    rlMatrixMode(RL_PROJECTION);                            // Switch to PROJECTION matrix
+    rlLoadIdentity();                                       // Reset current matrix (PROJECTION)
+    rlOrtho(x, width, height, y, 0.0f, 1.0f);               // Orthographic projection with top-left corner at (0,0)
 }
 
 void Renderer::BeginFrame()

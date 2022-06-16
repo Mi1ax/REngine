@@ -14,14 +14,9 @@ void GameLayer::OnAttach()
 {
 	m_Framebuffer = CreateRef<Framebuffer>(1280, 720);
 
-    // Init here
-    m_Particle.ColorBegin = { 254 / 255.0f, 212 / 255.0f, 123 / 255.0f, 1.0f };
-    m_Particle.ColorEnd = { 254 / 255.0f, 109 / 255.0f, 41 / 255.0f, 1.0f };
-    m_Particle.SizeBegin = 25.0f, m_Particle.SizeVariation = 15.0f, m_Particle.SizeEnd = 0.0f;
-    m_Particle.LifeTime = 1.0f;
-    m_Particle.Velocity = { 0.0f, 0.0f };
-    m_Particle.VelocityVariation = { 450.0f, 250.0f };
-    m_Particle.Position = { 0.0f, 0.0f };
+    m_Scene = CreateRef<Scene>();
+    m_RectEntity = m_Scene->CreateEntity("Rect");
+    m_RectEntity.AddComponent<SpriteRendererComponent>(glm::vec4{ 1.0f, 0.0f, 0.0f, 1.0f });
 }
 
 void GameLayer::OnDetach()
@@ -35,28 +30,13 @@ void GameLayer::OnUpdate(float dt)
         ((float)m_Framebuffer->GetWidth() != m_ViewportSize.x || (float)m_Framebuffer->GetHeight() != m_ViewportSize.y))
     {
         m_Framebuffer->Resize((int)m_ViewportSize.x, (int)m_ViewportSize.y);
+        Renderer::SetViewport(0, 0, m_ViewportSize.x, m_ViewportSize.y);
     }
 
     m_Framebuffer->Bind();
     Renderer::Clear();
 	Renderer::SetClearColor({ 0.2f, 0.2f, 0.2f, 1.0f });
-	Renderer::BeginFrame();
-	{
-        if (Input::IsMouseButtonPressed(1))
-        {
-            std::pair<float, float> mPos = Input::GetMousePosition();
-            auto width = Application::Get().GetWindow().GetWidth();
-            auto height = Application::Get().GetWindow().GetHeight();
-            
-            m_Particle.Position = { mPos.first, mPos.second };
-            for (int i = 0; i < 5; i++)
-                m_ParticleSystem.Emit(m_Particle);
-        }
-
-        m_ParticleSystem.OnUpdate(dt);
-        m_ParticleSystem.OnRender();
-	}
-	Renderer::EndFrame();
+    m_Scene->OnUpdate(dt);
     m_Framebuffer->Unbind();
 }
 
@@ -120,12 +100,11 @@ void GameLayer::OnImGuiRender()
 
         ImGui::Begin("Settings");
         {
-            ImGui::ColorEdit4("Color Begin", glm::value_ptr(m_Particle.ColorBegin));
-            ImGui::ColorEdit4("Color End", glm::value_ptr(m_Particle.ColorEnd));
-            ImGui::DragFloat("Size Begin", &m_Particle.SizeBegin);
-            ImGui::DragFloat("Size Variation", &m_Particle.SizeVariation);
-            ImGui::DragFloat("Life Time", &m_Particle.LifeTime);
-            ImGui::DragFloat2("Velocity Variation", glm::value_ptr(m_Particle.VelocityVariation));
+            if (m_RectEntity.HasComponent<TransformComponent>())
+            {
+                ImGui::DragFloat2("Position", glm::value_ptr(m_RectEntity.GetComponent<TransformComponent>().Position));
+                ImGui::DragFloat2("Size", glm::value_ptr(m_RectEntity.GetComponent<TransformComponent>().Size));
+            }
         }
         ImGui::End();
 

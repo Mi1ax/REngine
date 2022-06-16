@@ -16,10 +16,11 @@ public:
 	void OnImGuiRender() override;
 
 private:
-	ParticleProps m_Particle;
-	ParticleSystem m_ParticleSystem;
-
 	Ref<Framebuffer> m_Framebuffer;
+
+	Ref<Scene> m_Scene;
+
+	Entity m_RectEntity;
 
 	glm::vec2 m_ViewportSize {};
 	bool m_ViewportFocused = false, m_ViewportHovered = false;

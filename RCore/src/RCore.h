@@ -10,6 +10,11 @@
 
 #include "RCore/imGui/ImGuiLayer.h"
 
+// Scene
+#include "RCore/Scene/Scene.h"
+#include "RCore/Scene/Entity.h"
+#include "RCore/Scene/Components.h"
+
 // Renderer
 #include "RCore/Renderer/Renderer.h"
 #include "RCore/Renderer/Framebuffer.h"

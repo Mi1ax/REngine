@@ -4,6 +4,7 @@ workspace "RGame"
 	configurations { "Debug", "Release" }
 	platforms { "x64" }
 	architecture "x86_64"
+	cppdialect "C++20"
 
 	startproject "RGame"
 
@@ -25,6 +26,7 @@ IncludeDir["glfw"] = "%{wks.location}/RCore/vendor/glfw/include"
 IncludeDir["raylib"] = "%{wks.location}/RCore/vendor/raylib/src"
 IncludeDir["imgui"] = "%{wks.location}/RCore/vendor/imGui"
 IncludeDir["spdlog"] = "%{wks.location}/RCore/vendor/spdlog/include"
+IncludeDir["entt"] = "%{wks.location}/RCore/vendor/entt/include"
 IncludeDir["glm"] = "%{wks.location}/RCore/vendor/glm"
 
 group "Dependencies"

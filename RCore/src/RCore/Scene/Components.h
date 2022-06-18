@@ -1,6 +1,7 @@
 #pragma once
-
 #include "rcpch.h"
+
+#include "RCore/Renderer/Texture.h"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -27,7 +28,9 @@ struct TransformComponent
 
 struct SpriteRendererComponent
 {
+	Ref<Texture> SpriteTexture;
 	glm::vec4 Color{ 1.0f, 1.0f, 1.0f, 1.0f };
+	float TilingFactor = 1.0f;
 
 	SpriteRendererComponent() = default;
 	SpriteRendererComponent(const SpriteRendererComponent&) = default;

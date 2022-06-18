@@ -43,12 +43,7 @@ void Scene::OnUpdate(float dt)
 	{
 		auto [transform, sprite] = group.get<TransformComponent, SpriteRendererComponent>(entity);
 		
-		Renderer::DrawRectangle(
-			{ transform.Position.x, transform.Position.y,
-				transform.Size.x, transform.Size.y },
-			{ 0.0f, 0.0f },
-			transform.Rotation, 
-			sprite.Color);
+		Renderer::DrawSprite(sprite, transform);
 	}
 
 	Renderer::EndFrame();

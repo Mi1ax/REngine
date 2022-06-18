@@ -19,6 +19,7 @@ void GameLayer::OnAttach()
     m_Scene = CreateRef<Scene>();
     m_RectEntity = m_Scene->CreateEntity("Rect");
     m_RectEntity.AddComponent<SpriteRendererComponent>(glm::vec4{ 1.0f, 0.0f, 0.0f, 1.0f });
+    m_RectEntity.GetComponent<SpriteRendererComponent>().SpriteTexture = m_Texture;
 }
 
 void GameLayer::OnDetach()
@@ -38,17 +39,7 @@ void GameLayer::OnUpdate(float dt)
     m_Framebuffer->Bind();
     Renderer::Clear();
 	Renderer::SetClearColor({ 0.2f, 0.2f, 0.2f, 1.0f });
-    //m_Scene->OnUpdate(dt);
-    Renderer::BeginFrame();
-    {
-        Renderer::DrawTexture(m_Texture, 
-            { 0, 0, (float)m_Texture->GetWidth(), (float)m_Texture->GetHeight() }, 
-            { 10.0f, 10.0f, (float)m_Texture->GetWidth(), (float)m_Texture->GetHeight() },
-            { 0.0f, 0.0f }, 
-            0.0f, 
-            { 1.0f, 1.0f, 1.0f, 1.0f });
-    }
-    Renderer::EndFrame();
+    m_Scene->OnUpdate(dt);
     m_Framebuffer->Unbind();
 }
 
@@ -117,6 +108,8 @@ void GameLayer::OnImGuiRender()
             {
                 ImGui::DragFloat2("Position", glm::value_ptr(m_RectEntity.GetComponent<TransformComponent>().Position));
                 ImGui::DragFloat2("Size", glm::value_ptr(m_RectEntity.GetComponent<TransformComponent>().Size));
+                ImGui::ColorEdit4("Color", glm::value_ptr(m_RectEntity.GetComponent<SpriteRendererComponent>().Color));
+                ImGui::InputFloat("Tiling", &m_RectEntity.GetComponent<SpriteRendererComponent>().TilingFactor);
             }
         }
         ImGui::End();

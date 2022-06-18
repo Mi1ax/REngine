@@ -103,7 +103,7 @@ void Renderer::DrawRectangle(const Rect& rec, const glm::vec2& origin, float rot
 
     rlBegin(RL_TRIANGLES);
 
-    rlColor4ub(color.r * 255, color.g * 255, color.b * 255, color.a * 255);
+    rlColor4f(color.r, color.g, color.b, color.a);
 
     rlVertex2f(topLeft.x, topLeft.y);
     rlVertex2f(bottomLeft.x, bottomLeft.y);
@@ -173,7 +173,7 @@ void Renderer::DrawTexture(const Ref<Texture> texture, Rect source, Rect dest, c
         rlSetTexture(texture->GetID());
         rlBegin(RL_QUADS);
 
-        rlColor4ub(tintColor.r * 255, tintColor.g * 255, tintColor.b * 255, tintColor.a * 255);
+        rlColor4f(tintColor.r, tintColor.g, tintColor.b, tintColor.a);
         rlNormal3f(0.0f, 0.0f, 1.0f);                          // Normal vector pointing towards viewer
 
         // Top-left corner for texture and quad
@@ -199,4 +199,26 @@ void Renderer::DrawTexture(const Ref<Texture> texture, Rect source, Rect dest, c
         rlEnd();
         rlSetTexture(0);
     }
+}
+
+void Renderer::DrawTexture(const Ref<Texture> texture, const glm::vec2& tiling, const glm::vec2& offset, const Rect& quad, const glm::vec4& tint)
+{
+    // WARNING: This solution only works if TEXTURE_WRAP_REPEAT is supported,
+    // NPOT textures supported is required and OpenGL ES 2.0 could not support it
+    Rect source = { offset.x * texture->GetWidth(), offset.y * texture->GetHeight(), tiling.x * texture->GetWidth(), tiling.y * texture->GetHeight()};
+
+    DrawTexture(texture, source, quad, { 0.0f, 0.0f }, 0.0f, tint);
+}
+
+void Renderer::DrawSprite(const SpriteRendererComponent& src, const TransformComponent& tc)
+{
+    if (src.SpriteTexture)
+        DrawTexture(
+            src.SpriteTexture,
+            { src.TilingFactor, src.TilingFactor },
+            { 0.0f, 0.0f },
+            { tc.Position.x, tc.Position.y, tc.Size.x, tc.Size.y },
+            src.Color);
+    else
+        DrawRectangle({ tc.Position.x, tc.Position.y, tc.Size.x, tc.Size.y }, { 0.0f, 0.0f }, 0.0f, src.Color);
 }

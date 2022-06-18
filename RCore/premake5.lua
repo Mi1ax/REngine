@@ -14,7 +14,9 @@ project "RCore"
 		"src/**.h",
 		"vendor/glm/glm/**.hpp",
 		"vendor/glm/glm/**.inl",
-		"vendor/entt/include/**.hpp"
+		"vendor/entt/include/**.hpp",
+		"vendor/stb_image/**.cpp",
+        "vendor/stb_image/**.h",
 	}
 
 	links 
@@ -33,6 +35,7 @@ project "RCore"
         "%{IncludeDir.spdlog}",
         "%{IncludeDir.glm}",
 		"%{IncludeDir.entt}",
+		"%{IncludeDir.stb_image}",
 	}
 	
 	filter "action:vs*"

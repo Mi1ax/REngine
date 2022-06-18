@@ -2,20 +2,16 @@
 
 #include <glm/glm.hpp>
 
-typedef struct Texture {
-    unsigned int id;        // OpenGL texture id
-    int width;              // Texture base width
-    int height;             // Texture base height
+#include "RCore/Renderer/Texture.h"
+
+// Image, pixel data stored in CPU memory (RAM)
+typedef struct Img {
+    void* data;             // Image raw data
+    int width;              // Image base width
+    int height;             // Image base height
     int mipmaps;            // Mipmap levels, 1 by default
     int format;             // Data format (PixelFormat type)
-} Texture;
-
-// RenderTexture, fbo for texture rendering
-typedef struct RenderTexture {
-    unsigned int id;        // OpenGL framebuffer object id
-    Texture texture;        // Color buffer attachment texture
-    Texture depth;          // Depth buffer attachment texture
-} RenderTexture;
+} Img;
 
 // Rectangle, 4 components
 typedef struct Rect {
@@ -38,15 +34,13 @@ public:
 	static void BeginFrame();
 	static void EndFrame();
 
-    // TODO: LoadTexture
-    static void UnloadTexture(uint32_t textureID);
-
-	static RenderTexture LoadRenderTexture(uint32_t width, uint32_t height);
-    static void UnloadRenderTexture(RenderTexture renderTexture);
-
-    static void BindFramebuffer(uint32_t frambufferID);
-    static void UnbindFramebuffer();
-
     // Rendering Shapes
     static void DrawRectangle(const Rect& rec, const glm::vec2& origin, float rotation, const glm::vec4& color);
+
+    // Texture rendering
+    static void DrawTexture(
+        const Ref<Texture> texture,
+        Rect source, Rect dest, 
+        const glm::vec2& origin, float rotation, 
+        const glm::vec4& tintColor);
 };

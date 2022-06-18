@@ -23,6 +23,7 @@ workspace "RGame"
 
 IncludeDir = {}
 IncludeDir["glfw"] = "%{wks.location}/RCore/vendor/glfw/include"
+IncludeDir["stb_image"] = "%{wks.location}/RCore/vendor/stb_image"
 IncludeDir["raylib"] = "%{wks.location}/RCore/vendor/raylib/src"
 IncludeDir["imgui"] = "%{wks.location}/RCore/vendor/imGui"
 IncludeDir["spdlog"] = "%{wks.location}/RCore/vendor/spdlog/include"

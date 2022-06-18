@@ -19,6 +19,7 @@ private:
 	Ref<Framebuffer> m_Framebuffer;
 
 	Ref<Scene> m_Scene;
+	Ref<Texture> m_Texture;
 
 	Entity m_RectEntity;
 

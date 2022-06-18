@@ -14,6 +14,8 @@ void GameLayer::OnAttach()
 {
 	m_Framebuffer = CreateRef<Framebuffer>(1280, 720);
 
+    m_Texture = CreateRef<Texture>("assets/textures/Checkerboard.png");
+
     m_Scene = CreateRef<Scene>();
     m_RectEntity = m_Scene->CreateEntity("Rect");
     m_RectEntity.AddComponent<SpriteRendererComponent>(glm::vec4{ 1.0f, 0.0f, 0.0f, 1.0f });
@@ -36,7 +38,17 @@ void GameLayer::OnUpdate(float dt)
     m_Framebuffer->Bind();
     Renderer::Clear();
 	Renderer::SetClearColor({ 0.2f, 0.2f, 0.2f, 1.0f });
-    m_Scene->OnUpdate(dt);
+    //m_Scene->OnUpdate(dt);
+    Renderer::BeginFrame();
+    {
+        Renderer::DrawTexture(m_Texture, 
+            { 0, 0, (float)m_Texture->GetWidth(), (float)m_Texture->GetHeight() }, 
+            { 10.0f, 10.0f, (float)m_Texture->GetWidth(), (float)m_Texture->GetHeight() },
+            { 0.0f, 0.0f }, 
+            0.0f, 
+            { 0.0f, 0.0f, 0.0f, 1.0f });
+    }
+    Renderer::EndFrame();
     m_Framebuffer->Unbind();
 }
 
@@ -100,6 +112,7 @@ void GameLayer::OnImGuiRender()
 
         ImGui::Begin("Settings");
         {
+            ImGui::Separator();
             if (m_RectEntity.HasComponent<TransformComponent>())
             {
                 ImGui::DragFloat2("Position", glm::value_ptr(m_RectEntity.GetComponent<TransformComponent>().Position));

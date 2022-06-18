@@ -28,7 +28,8 @@ project "RGame"
         "%{IncludeDir.raylib}",
         "%{IncludeDir.imgui}",
         "%{IncludeDir.glm}",
-		"%{IncludeDir.entt}"
+		"%{IncludeDir.entt}",
+		"%{IncludeDir.stb_image}",
 	}
 	
 	filter "action:vs*"

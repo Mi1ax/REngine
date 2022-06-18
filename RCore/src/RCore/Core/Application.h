@@ -24,7 +24,7 @@ public:
 
 	inline Window& GetWindow() { return *m_Window; }
 	inline void Close() { m_Running = false; }
-
+	inline float GetTimestep() const { return m_Timestep; }
 	inline static Application& Get() { return *s_Instance; }
 
 private:
@@ -37,7 +37,9 @@ private:
 
 	bool m_Running = true;
 	bool m_Minimazed = false;
+
 	float m_LastFrameTime = 0.0f;
+	float m_Timestep = 0.0f;
 
 	LayerStack m_LayerStack;
 

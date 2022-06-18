@@ -15,7 +15,6 @@ project "RGame"
 	{ 
 		"glfw",
 		"imgui",
-		"raylib",
         "RCore"
 	}
 	
@@ -25,7 +24,7 @@ project "RGame"
 		"%{wks.location}/RCore/src",
 		"%{IncludeDir.glfw}",
 		"%{IncludeDir.spdlog}",
-        "%{IncludeDir.raylib}",
+        "%{IncludeDir.rlgl}",
         "%{IncludeDir.imgui}",
         "%{IncludeDir.glm}",
 		"%{IncludeDir.entt}",

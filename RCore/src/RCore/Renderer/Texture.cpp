@@ -7,13 +7,13 @@
 Texture::Texture(const std::string& filePath)
 {
 	int width, height, channels;
-	stbi_set_flip_vertically_on_load(1);
+	//stbi_set_flip_vertically_on_load(1);
 	stbi_uc* data = stbi_load(filePath.c_str(), &width, &height, &channels, 0);
 	CORE_ASSERT(data, "Failed to load image!");
 	m_Width = width;
 	m_Height = height;
 
-	rlPixelFormat dataFormat;
+	rlPixelFormat dataFormat = RL_PIXELFORMAT_NONE;
 	if (channels == 4)
 		dataFormat = RL_PIXELFORMAT_UNCOMPRESSED_R8G8B8A8;
 	else if (channels == 3)

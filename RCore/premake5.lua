@@ -23,18 +23,19 @@ project "RCore"
 	{ 
 		"glfw",
 		"imgui",
-		"raylib"
+		"glad",
 	}
 	
 	includedirs 
 	{
 		"src",
 		"%{IncludeDir.glfw}",
-        "%{IncludeDir.raylib}",
+        "%{IncludeDir.rlgl}",
         "%{IncludeDir.imgui}",
         "%{IncludeDir.spdlog}",
         "%{IncludeDir.glm}",
 		"%{IncludeDir.entt}",
+		"%{IncludeDir.glad}",
 		"%{IncludeDir.stb_image}",
 	}
 	

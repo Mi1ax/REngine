@@ -46,7 +46,7 @@ void GameLayer::OnUpdate(float dt)
             { 10.0f, 10.0f, (float)m_Texture->GetWidth(), (float)m_Texture->GetHeight() },
             { 0.0f, 0.0f }, 
             0.0f, 
-            { 0.0f, 0.0f, 0.0f, 1.0f });
+            { 1.0f, 1.0f, 1.0f, 1.0f });
     }
     Renderer::EndFrame();
     m_Framebuffer->Unbind();

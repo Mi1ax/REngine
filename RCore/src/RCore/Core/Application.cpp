@@ -10,8 +10,6 @@ Application* Application::s_Instance = nullptr;
 
 Application::Application(const std::string& title, uint32_t width, uint32_t height)
 {
-	Log::Init();
-
 	CORE_ASSERT(!s_Instance, "Application is already exists!");
 	s_Instance = this;
 

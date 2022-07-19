@@ -3,8 +3,8 @@ project "RScript"
 	language "C#"
 	dotnetframework "4.7.2"
 
-	targetdir ("%{wks.location}/RGame/Resources/Scripts")
-	objdir ("%{wks.location}/RGame/Resources/Scripts/Intermediates")
+	targetdir ("%{wks.location}/REngine/Resources/Scripts")
+	objdir ("%{wks.location}/REngine/Resources/Scripts/Intermediates")
 
 	files 
 	{

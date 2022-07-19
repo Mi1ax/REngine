@@ -1,4 +1,4 @@
-project "RGame"
+project "REngine"
 	kind "ConsoleApp"
 	language "C++"
 	

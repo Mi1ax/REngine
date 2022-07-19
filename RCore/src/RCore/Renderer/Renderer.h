@@ -14,12 +14,12 @@ typedef struct Img {
     int format;             // Data format (PixelFormat type)
 } Img;
 
-// Rectangle, 4 components
+// Raytangle, 4 components
 typedef struct Rect {
-    float x;                // Rectangle top-left corner position x
-    float y;                // Rectangle top-left corner position y
-    float width;            // Rectangle width
-    float height;           // Rectangle height
+    float x;                // Raytangle top-left corner position x
+    float y;                // Raytangle top-left corner position y
+    float width;            // Raytangle width
+    float height;           // Raytangle height
 } Rect;
 
 class Renderer

@@ -3,6 +3,7 @@
 
 #include "RCore/Core/Base.h"
 #include "RCore/Renderer/Renderer.h"
+#include "RCore/Scripting/ScriptEngine.h"
 
 #include <GLFW/glfw3.h>
 
@@ -16,11 +17,16 @@ Application::Application(const std::string& title, uint32_t width, uint32_t heig
 	m_Window = CreateScope<Window>(title, width, height);
 	m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
 
+	ScriptEngine::Init();
+
 	m_ImGuiLayer = new ImGuiLayer();
 	PushOverlay(m_ImGuiLayer);
 }
 
-Application::~Application() = default;
+Application::~Application()
+{
+	ScriptEngine::Shutdown();
+}
 
 void Application::OnEvent(Event& e)
 {

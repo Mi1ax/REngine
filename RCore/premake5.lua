@@ -24,6 +24,8 @@ project "RCore"
 		"glfw",
 		"imgui",
 		"glad",
+
+		"%{Library.mono}",
 	}
 	
 	includedirs 
@@ -37,8 +39,20 @@ project "RCore"
 		"%{IncludeDir.entt}",
 		"%{IncludeDir.glad}",
 		"%{IncludeDir.stb_image}",
+		"%{IncludeDir.mono}",
 	}
 	
+	filter "system:windows"
+		systemversion "latest"
+
+		links
+		{
+			"%{Library.WinSock}",
+			"%{Library.WinMM}",
+			"%{Library.WinVersion}",
+			"%{Library.BCrypt}",
+		}
+
 	filter "action:vs*"
 		defines{"_WINSOCK_DEPRECATED_NO_WARNINGS", "_CRT_SECURE_NO_WARNINGS", "_WIN32"}
 		links {"winmm"}

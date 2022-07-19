@@ -1,8 +1,6 @@
 ﻿#pragma once
 #include "rcpch.h"
 
-#include "Renderer.h"
-
 class Framebuffer
 {
 public:
@@ -18,7 +16,6 @@ public:
 	uint32_t GetHeight() const { return m_Height; }
 
 	uint32_t GetColorAttachmentRendererID() const { return m_ColorAttachment; };
-	//RenderTexture GetTarget() const { return m_Framebuffer; }
 
 private:
 	void Invalidate();

@@ -587,7 +587,7 @@ RLAPI void rlEnableStereoRender(void);                  // Enable stereo renderi
 RLAPI void rlDisableStereoRender(void);                 // Disable stereo rendering
 RLAPI bool rlIsStereoRenderEnabled(void);               // Check if stereo render is enabled
 
-RLAPI void rlClearColor(unsigned char r, unsigned char g, unsigned char b, unsigned char a); // Clear color buffer with color
+RLAPI void rlClearColor(float r, float g, float b, float a); // Clear color buffer with color
 RLAPI void rlClearScreenBuffers(void);                  // Clear used screen buffers (color and depth)
 RLAPI void rlCheckErrors(void);                         // Check and log OpenGL error codes
 RLAPI void rlSetBlendMode(int mode);                    // Set blending mode
@@ -1729,15 +1729,9 @@ bool rlIsStereoRenderEnabled(void)
 }
 
 // Clear color buffer with color
-void rlClearColor(unsigned char r, unsigned char g, unsigned char b, unsigned char a)
+void rlClearColor(float r, float g, float b, float a)
 {
-    // Color values clamp to 0.0f(0) and 1.0f(255)
-    float cr = (float)r/255;
-    float cg = (float)g/255;
-    float cb = (float)b/255;
-    float ca = (float)a/255;
-
-    glClearColor(cr, cg, cb, ca);
+    glClearColor(r, g, b, a);
 }
 
 // Clear used screen buffers (color and depth)

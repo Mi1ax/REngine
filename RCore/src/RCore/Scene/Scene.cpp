@@ -6,6 +6,7 @@
 #include "Components.h"
 
 #include "RCore/Renderer/Renderer.h"
+#include "RCore/Renderer/Renderer2D.h"
 
 Scene::Scene()
 {
@@ -36,17 +37,17 @@ void Scene::DestroyEntity(Entity entity)
 
 void Scene::OnUpdate(float dt)
 {
-	Renderer::BeginFrame();
+	Renderer2D::BeginFrame();
 
 	auto group = m_Registry.group<TransformComponent>(entt::get<SpriteRendererComponent>);
 	for (auto entity : group)
 	{
 		auto [transform, sprite] = group.get<TransformComponent, SpriteRendererComponent>(entity);
 		
-		Renderer::DrawSprite(sprite, transform);
+		Renderer2D::DrawSprite(sprite, transform);
 	}
 
-	Renderer::EndFrame();
+	Renderer2D::EndFrame();
 }
 
 void Scene::OnViewportResize(uint32_t width, uint32_t height)

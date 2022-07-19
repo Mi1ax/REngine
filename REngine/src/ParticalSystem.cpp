@@ -34,7 +34,7 @@ void ParticleSystem::OnUpdate(float ts)
 
 void ParticleSystem::OnRender()
 {
-	Renderer::BeginFrame();
+	Renderer2D::BeginFrame();
 	for (auto& particle : m_ParticlePool)
 	{
 		if (!particle.Active)
@@ -47,9 +47,9 @@ void ParticleSystem::OnRender()
 
 		float size = glm::lerp(particle.SizeEnd, particle.SizeBegin, life);
 		glm::vec3 position = { particle.Position.x, particle.Position.y, 1.0f };
-		Renderer::DrawRectangle({ position.x, position.y, size, size }, { 0.0f, 0.0f }, particle.Rotation, color);
+		Renderer2D::DrawRectangle({ position.x, position.y, size, size }, { 0.0f, 0.0f }, particle.Rotation, color);
 	}
-	Renderer::EndFrame();
+	Renderer2D::EndFrame();
 }
 
 void ParticleSystem::Emit(const ParticleProps& particleProps)

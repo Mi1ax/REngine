@@ -17,4 +17,5 @@
 
 // Renderer
 #include "RCore/Renderer/Renderer.h"
+#include "RCore/Renderer/Renderer2D.h"
 #include "RCore/Renderer/Framebuffer.h"

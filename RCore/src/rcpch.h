@@ -8,9 +8,16 @@
 
 #include <string>
 #include <sstream>
-#include <vector>
+#include <fstream>
 #include <array>
+#include <vector>
 #include <unordered_map>
 #include <unordered_set>
 
+#include "RCore/Core/Base.h"
+
 #include "RCore/Core/Log.h"
+
+#ifdef _WIN32
+	#include <Windows.h>
+#endif

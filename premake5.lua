@@ -1,6 +1,6 @@
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
-workspace "RGame"
+workspace "REngine"
 	configurations { "Debug", "Release" }
 	platforms { "x64" }
 	architecture "x86_64"
@@ -30,6 +30,19 @@ IncludeDir["glad"] = "%{wks.location}/RCore/vendor/glad/include"
 IncludeDir["spdlog"] = "%{wks.location}/RCore/vendor/spdlog/include"
 IncludeDir["entt"] = "%{wks.location}/RCore/vendor/entt/include"
 IncludeDir["glm"] = "%{wks.location}/RCore/vendor/glm"
+IncludeDir["mono"] = "%{wks.location}/RCore/vendor/mono/include"
+
+LibraryDir = {}
+LibraryDir["mono"] = "%{wks.location}/RCore/vendor/mono/lib/%{cfg.buildcfg}"
+
+Library = {}
+Library["mono"] = "%{LibraryDir.mono}/libmono-static-sgen.lib"
+
+-- Windows
+Library["WinSock"] = "Ws2_32.lib"
+Library["WinMM"] = "Winmm.lib"
+Library["WinVersion"] = "Version.lib"
+Library["BCrypt"] = "Bcrypt.lib"
 
 group "Dependencies"
 	include "RCore/vendor/glfw"
@@ -37,6 +50,9 @@ group "Dependencies"
 	include "RCore/vendor/imgui"
 group ""
 
-include "RCore"
+group "Core"
+	include "RCore"
+	include "RScript"
+group ""
 include "RGame"
 	

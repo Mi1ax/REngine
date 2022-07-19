@@ -14,12 +14,9 @@ void GameLayer::OnAttach()
 {
 	m_Framebuffer = CreateRef<Framebuffer>(1280, 720);
 
-    m_Texture = CreateRef<Texture>("assets/textures/Checkerboard.png");
-
     m_Scene = CreateRef<Scene>();
     m_RectEntity = m_Scene->CreateEntity("Rect");
     m_RectEntity.AddComponent<SpriteRendererComponent>(glm::vec4{ 1.0f, 0.0f, 0.0f, 1.0f });
-    m_RectEntity.GetComponent<SpriteRendererComponent>().SpriteTexture = m_Texture;
 }
 
 void GameLayer::OnDetach()
